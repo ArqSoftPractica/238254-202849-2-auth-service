@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   post '/users' do
-    if user_params&.token.present?
-      token_hash = JWT.decode payload, ENV['JWT_SECRET'], true, { algorithm: 'HS256' }
+    if user_params[:token].present?
+      token_hash = JWT.decode user_params[:token], ENV['JWT_SECRET'], true, { algorithm: 'HS256' }
       invitation = Invitation.find_by(id: token_hash['id'], acceptedAt: nil)
       if invitation.present?
         user_params['role'] = token_hash['role']
@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    @user_params ||= Hashie::Mash.new(params).permit(:name, :email, :password, :role, :token)
+    @body_request ||= JSON.parse(request.body.read).transform_keys(&:to_sym)
+    @user_params ||= @body_request.slice(:name, :email, :password, :role, :token)
   end
 end
