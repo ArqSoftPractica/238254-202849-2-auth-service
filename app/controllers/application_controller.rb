@@ -11,5 +11,14 @@ class ApplicationController < Sinatra::Base
 
   configure :development do
     register Sinatra::Reloader
+    enable :reloader
+    also_reload 'app/**/*.rb'
+    also_reload 'config/**/*.rb'
+    also_reload './**/*.rb'
+    also_reload './*.rb'
+  end
+
+  before do
+    content_type :json
   end
 end
