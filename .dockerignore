@@ -1,0 +1,9 @@
+node_modules
+.editorconfig
+.git
+.gitignore
+.env.sample
+.DS_Store
+.localstack
+LICENSE
+README.md
