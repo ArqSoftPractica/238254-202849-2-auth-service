@@ -2,15 +2,18 @@ class AuthController < ApplicationController
   post '/login' do
     @user = User.find_by email: login_params[:email]
     if @user&.authenticate(login_params[:password])
+      expires_in = Time.now.to_i + (ENV['JWT_EXPIRATION'].to_i || 4 * 3600)
       payload = {
         id: @user.id,
         email: @user.email,
+        name: @user.name,
         role: @user.role,
         companyId: @user.companyId
+        exp: expires_in
       }
-      expires_in = Time.now.to_i + (ENV['JWT_EXPIRATION'].to_i || 4 * 3600)
       status 200
-      JWT.encode payload, ENV['JWT_SECRET'], 'HS256', { exp: expires_in }
+      token = JWT.encode payload, ENV['JWT_SECRET'], 'HS256', { exp: expires_in }
+      token.to_json
     else
       status 401
       'Unauthorized'

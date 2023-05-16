@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       invitation.update! acceptedAt: Time.now if invitation.present?
 
       status 201
-      @user.to_json
+      @user.slice(:id, :email, :name, :role, :companyId, :created_at, :updated_at).to_json
     else
       status 400
       @user.errors.to_json
