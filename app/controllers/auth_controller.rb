@@ -8,7 +8,7 @@ class AuthController < ApplicationController
         email: @user.email,
         name: @user.name,
         role: @user.role,
-        companyId: @user.companyId
+        companyId: @user.companyId,
         exp: expires_in
       }
       status 200

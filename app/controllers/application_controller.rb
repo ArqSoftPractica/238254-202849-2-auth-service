@@ -1,4 +1,5 @@
 require 'dotenv'
+require 'sinatra/cross_origin'
 
 class ApplicationController < Sinatra::Base
   Dotenv.load
@@ -18,7 +19,15 @@ class ApplicationController < Sinatra::Base
     also_reload './*.rb'
   end
 
+  configure do
+    enable :cross_origin
+    set :allow_origin, :any
+    set :allow_methods, %i[get post put delete]
+    set :allow_headers, ['Content-Type']
+  end
+
   before do
+    cross_origin
     content_type :json
   end
 end
