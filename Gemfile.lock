@@ -58,6 +58,7 @@ GEM
       rack-protection (= 3.0.6)
       sinatra (= 3.0.6)
       tilt (~> 2.0)
+    sinatra-cross_origin (0.4.0)
     sinatra-reloader (1.0)
       sinatra-contrib
     tilt (2.1.0)
@@ -82,6 +83,7 @@ DEPENDENCIES
   require_all
   sinatra
   sinatra-activerecord
+  sinatra-cross_origin (~> 0.4.0)
   sinatra-reloader (~> 1.0)
 
 RUBY VERSION
