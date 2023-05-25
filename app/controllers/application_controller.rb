@@ -27,7 +27,8 @@ class ApplicationController < Sinatra::Base
   end
 
   before do
-    cross_origin
-    content_type :json
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
   end
 end
