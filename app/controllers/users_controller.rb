@@ -1,3 +1,5 @@
+require 'sinatra/cross_origin'
+
 class UsersController < ApplicationController
   post '/users' do
     if user_params[:token].present?

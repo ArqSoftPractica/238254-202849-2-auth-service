@@ -1,3 +1,5 @@
+require 'sinatra/cross_origin'
+
 class AuthController < ApplicationController
   post '/login' do
     @user = User.find_by email: login_params[:email]
