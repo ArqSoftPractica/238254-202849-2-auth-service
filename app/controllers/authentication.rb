@@ -18,13 +18,13 @@ class Authentication
 
   def call(env)
     puts "token"
-    req = Rack::Request.new(env)
+    # req = Rack::Request.new(env)
     token = nil
 
     puts "token"
 
     AUTH_HEADERS.each do |header|
-      auth_header = req.env["HTTP_#{header.upcase.gsub('-', '_')}"]
+      auth_header = env["HTTP_#{header.upcase.gsub('-', '_')}"]
       if auth_header
         token = auth_header.split(' ')[1]
         break
@@ -53,21 +53,20 @@ class Authentication
           if decoded['exp'] && Time.now.to_i >= decoded['exp']
             return [401, { 'Content-Type' => 'application/json' }, [{ error: 'Not authorized' }.to_json]]
           end
-
           puts "decoded: #{decoded}"
           puts @roles_allowed
         if @roles_allowed.include?(decoded['role'])
-          req.env['user'] = decoded
+          env['user'] = decoded
           return @app.call(env)
         else
           return [403, { 'Content-Type' => 'application/json' }, [{ error: 'Forbidden' }.to_json]]
         end
       rescue => error
         # Log the error here
-        return [401, { 'Content-Type' => 'application/json' }, [{ message: 'Unauthorized' }.to_json]]
+        return [401, { 'Content-Type' => 'application/json' }, [{ message: 'Unauthorized :()' }.to_json]]
       end
     end
-    return [401, { 'Content-Type' => 'application/json' }, [{ message: 'Unauthorized' }.to_json]]
+    return [401, { 'Content-Type' => 'application/json' }, [{ message: 'Unauthorized :)' }.to_json]]
   end
 
   def validate_invitation_token(token)
