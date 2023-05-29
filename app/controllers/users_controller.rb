@@ -52,7 +52,7 @@ class UsersController < ApplicationController
 
   def get_user_params
     @get_user_params ||= %i[users_ids companyId].each_with_object({}) do |k, h|
-      h[k] = params[k]
+      h[k] = params[k] || nil
     end
   end
 end
