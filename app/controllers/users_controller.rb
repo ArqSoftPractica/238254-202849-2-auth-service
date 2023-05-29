@@ -18,8 +18,8 @@ class UsersController < ApplicationController
       invitation.update! acceptedAt: Time.now if invitation.present?
 
       status 201
-      result = [:id, :email, :name, :role, :companyId, :created_at, :updated_at].each_with_object({}) do |k, h|
-        h[k] = params[k]
+      result = %i[id email name role companyId created_at updated_at].each_with_object({}) do |k, h|
+        h[k] = @user[k]
       end
       result.to_json
     else
@@ -33,24 +33,26 @@ class UsersController < ApplicationController
               User.where(id: get_user_params[:users_ids])
             elsif get_user_params[:companyId].present?
               User.where(companyId: get_user_params[:companyId])
+            else
+              User.all
             end
     users
-      .pluck(:id, :email, :name, :role, :companyId, :created_at, :updated_at)
+      .select(:id, :email, :name, :role, :companyId, :created_at, :updated_at)
       .to_json
   end
 
   private
 
   def user_params
-    @body_request ||= JSON.parse(request.body.read).transform_keys(&:to_sym)
+    @body_request ||= JSON.parse(request.body.read || '').transform_keys(&:to_sym)
     @user_params ||= %i[name email password role token].each_with_object({}) do |k, h|
       h[k] = @body_request[k]
     end
   end
 
   def get_user_params
-    @get_user_params ||= [:users_ids, :companyId].each_with_object({}) do |k, h|
-      h[k] = @body_request[k]
+    @get_user_params ||= %i[users_ids companyId].each_with_object({}) do |k, h|
+      h[k] = params[k]
     end
   end
 end
