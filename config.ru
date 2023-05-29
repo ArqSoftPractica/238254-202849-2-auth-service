@@ -8,5 +8,6 @@ use Rack::MethodOverride
 use App
 use UsersController
 use AuthController
+use UsersCompaniesController
 
 run ApplicationController

@@ -1,10 +1,11 @@
 development: &default
   encoding: unicode
   adapter: postgresql
-  database: <%= ENV.fetch('PGDB','authentication_service_database') %>
+  database: <%= ENV.fetch('PGDB','authServiceDatabase') %>
   username: <%= ENV.fetch('PGUSER','postgres') %>
   password: <%= ENV.fetch('PGPASSWORD','postgres') %>
   host: <%= ENV.fetch('PGHOST','localhost') %>
+  url: <%= ENV.fetch('DATABASE_URL', nil) %>
   pool: <%= ENV.fetch('RAILS_MAX_THREADS', ENV.fetch('DB_POOL', 5)) %>
   reaping_frequency: <%= ENV.fetch('DB_CONN_REAPING_FREQ', nil) %>
 

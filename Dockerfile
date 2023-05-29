@@ -22,4 +22,4 @@ COPY . ./
 
 EXPOSE $SERVER_PORT
 
-CMD ["sh", "-c", "bundle exec rackup -p $SERVER_PORT -o 0.0.0.0"]
+CMD ["sh", "-c", "bundle exec rake db:create & bundle exec rake db:migrate & bundle exec rackup -p $SERVER_PORT -o 0.0.0.0"]
