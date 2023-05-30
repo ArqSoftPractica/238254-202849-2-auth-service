@@ -4,7 +4,7 @@ require 'redis'
 require 'sinatra/base'
 
 class Authentication
-  AUTH_HEADERS = %w[authorization x-api-key x-access-token].freeze
+  AUTH_HEADERS = %w[Authorization x-api-key x-access-token].freeze
   API_HEADER = 'HTTP_X_API_KEY'
 
   def initialize(app, roles_allowed, accept_api_key)
@@ -20,7 +20,9 @@ class Authentication
 
     AUTH_HEADERS.each do |header|
       auth_header = env["HTTP_#{header.upcase.gsub('-', '_')}"]
+      puts "auth_header: #{auth_header}"
       if auth_header
+        puts "auth_headerINSIDE: #{auth_header}"
         token = auth_header.split(' ')[1]
         break
       end
