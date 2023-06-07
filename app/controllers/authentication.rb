@@ -37,12 +37,11 @@ class Authentication
 
         req.env['user'] = decoded
         return @app.call(env)
-
       rescue StandardError => e
         # Log the error here
-        return [401, { 'Content-Type' => 'application/json' }, [{ message: 'Unauthorized :()' }.to_json]]
+        return [401, { 'Content-Type' => 'application/json' }, [{ message: 'Unauthorized' }.to_json]]
       end
     end
-    [401, { 'Content-Type' => 'application/json' }, [{ message: 'Unauthorized :)' }.to_json]]
+    [401, { 'Content-Type' => 'application/json' }, [{ message: 'Unauthorized' }.to_json]]
   end
 end
