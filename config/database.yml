@@ -1,11 +1,7 @@
 development: &default
   encoding: unicode
   adapter: postgresql
-  database: <%= ENV.fetch('PGDB','authServiceDatabase') %>
-  username: <%= ENV.fetch('PGUSER','postgres') %>
-  password: <%= ENV.fetch('PGPASSWORD','postgres') %>
-  host: <%= ENV.fetch('PGHOST','localhost') %>
-  url: <%= ENV.fetch('DATABASE_URL', nil) %>
+  url: postgres://postgres:postgres@obligatorio.c7q0xfzgcxvb.us-east-1.rds.amazonaws.com:5432/authentication_service_database
   pool: <%= ENV.fetch('RAILS_MAX_THREADS', ENV.fetch('DB_POOL', 5)) %>
   reaping_frequency: <%= ENV.fetch('DB_CONN_REAPING_FREQ', nil) %>
 

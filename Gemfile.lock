@@ -78,6 +78,7 @@ DEPENDENCIES
   pg (~> 1.5, >= 1.5.3)
   pry (~> 0.14.1)
   puma
+  rack
   rack-flash3
   rake
   redis (~> 5.0, >= 5.0.6)

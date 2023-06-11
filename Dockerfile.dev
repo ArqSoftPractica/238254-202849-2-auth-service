@@ -10,12 +10,16 @@ ENV BUILD_PACKAGES="build-base curl-dev git postgresql-dev" \
 RUN apk update && \
     apk upgrade && \
     apk add --update --no-cache $BUILD_PACKAGES $DEV_PACKAGES $RUBY_PACKAGES
+
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 RUN apk add --no-cache build-base
 COPY Gemfile* ./
+#RUN bundle config set --local without 'development test'
 RUN bundle install
 COPY . ./
-EXPOSE $PORT
-CMD ["sh", "-c", "bundle exec rackup -p $PORT -o 0.0.0.0"]
+
+EXPOSE $SERVER_PORT
+
+CMD ["sh", "-c", "bundle exec rake db:create && (bundle exec rake db:migrate & bundle exec rake db:seed & bundle exec rackup -p $SERVER_PORT -o 0.0.0.0)"]

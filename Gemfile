@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '3.2.0'
 
 gem 'sinatra'
+gem 'rack'
 gem 'activerecord', require: 'active_record'
 gem 'rake'
 gem 'pg', '~> 1.5', '>= 1.5.3'
