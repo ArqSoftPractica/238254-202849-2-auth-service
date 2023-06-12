@@ -14,8 +14,6 @@ class UsersController < ApplicationController
 
     @user = User.new user_params
     if @user.save
-      invitation.update! acceptedAt: Time.now if invitation.present?
-
       status 201
       result = %i[id email name role companyId created_at updated_at].each_with_object({}) do |k, h|
         h[k] = @user[k]
