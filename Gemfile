@@ -17,6 +17,7 @@ gem 'jwt', '~> 1.5', '>= 1.5.4'
 gem 'dotenv', '~> 2.1', '>= 2.1.1'
 gem 'hashie', '~> 3.4', '>= 3.4.4'
 gem 'sinatra-cross_origin', '~> 0.4.0'
+gem 'newrelic_rpm'
 
 group :development do
   gem 'sinatra-reloader', '~> 1.0'

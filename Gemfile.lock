@@ -25,6 +25,7 @@ GEM
     multi_json (1.15.0)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
+    newrelic_rpm (9.2.2)
     nio4r (2.5.9)
     pg (1.5.3)
     pry (0.14.2)
@@ -75,6 +76,7 @@ DEPENDENCIES
   dotenv (~> 2.1, >= 2.1.1)
   hashie (~> 3.4, >= 3.4.4)
   jwt (~> 1.5, >= 1.5.4)
+  newrelic_rpm
   pg (~> 1.5, >= 1.5.3)
   pry (~> 0.14.1)
   puma
