@@ -3,9 +3,8 @@ require 'sinatra/cross_origin'
 class UsersController < ApplicationController
   post '/users' do
     if user_params[:token].present? && user_params[:token] != ''
-      token_hash = JWT.decode user_params[:token], ENV['JWT_SECRET'], true, { algorithm: 'HS256' }
-      invitation = Invitation.find_by(id: token_hash['id'], acceptedAt: nil)
-      if invitation.present?
+      token_hash = (JWT.decode user_params[:token], ENV['JWT_SECRET'], true, { algorithm: 'HS256' })[0]
+      if token_hash.present?
         user_params['role'] = token_hash['role']
         user_params['companyId'] = token_hash['companyId']
       end
@@ -15,8 +14,6 @@ class UsersController < ApplicationController
 
     @user = User.new user_params
     if @user.save
-      invitation.update! acceptedAt: Time.now if invitation.present?
-
       status 201
       result = %i[id email name role companyId created_at updated_at].each_with_object({}) do |k, h|
         h[k] = @user[k]
