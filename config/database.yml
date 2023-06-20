@@ -1,0 +1,10 @@
+development: &default
+  encoding: unicode
+  adapter: postgresql
+  url: postgres://postgres:postgres@obligatorio.c7q0xfzgcxvb.us-east-1.rds.amazonaws.com:5432/authentication_service_database
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS', ENV.fetch('DB_POOL', 5)) %>
+  reaping_frequency: <%= ENV.fetch('DB_CONN_REAPING_FREQ', nil) %>
+
+production:
+  <<: *default
+  prepared_statements: false
